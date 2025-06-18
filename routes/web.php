@@ -24,4 +24,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/api/tasks', [TaskController::class, 'index']);
+Route::post('/api/tasks', [TaskController::class, 'store']);
+Route::put('/api/tasks/{task}', [TaskController::class, 'update']);
+Route::patch('/api/tasks/{task}', [TaskController::class, 'update']);
+Route::delete('/api/tasks/{task}', [TaskController::class, 'destroy']);
+
+Route::get('/api/categories', [CategoryController::class, 'index']);
+Route::post('/api/categories', [CategoryController::class, 'store']);
+Route::put('/api/categories/{category}', [CategoryController::class, 'update']);
+Route::delete('/api/categories/{category}', [CategoryController::class, 'destroy']);
+
+
+
 require __DIR__.'/auth.php';

@@ -10,9 +10,10 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return $request->user()->tasks()->with('category')->get();
+
     }
 
     /**
@@ -28,7 +29,14 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category_id' => 'nullable|exists:categories,id',
+        ]);
+        return $request->user()->tasks()->create($validated);
+
+
     }
 
     /**
@@ -52,7 +60,9 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $task->update($request->only(['title', 'description', 'category_id', 'is_completed']));
+        return response()->json($task);
+
     }
 
     /**
@@ -60,6 +70,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return response()->json(['message' => 'Task deleted']);
+
     }
 }

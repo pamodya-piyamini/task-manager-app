@@ -10,9 +10,10 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return $request->user()->categories()->get();
+
     }
 
     /**
@@ -28,7 +29,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        return $request->user()->categories()->create($validated);
+
     }
 
     /**
@@ -50,9 +56,14 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->name = $request->input('name');
+        $category->save();
+
+        return response()->json($category);
+
     }
 
     /**
@@ -60,6 +71,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->tasks()->update(['category_id' => null]);
+        $category->delete();
+        return response()->json(['message' => 'Category deleted successfully']);
+
     }
 }
