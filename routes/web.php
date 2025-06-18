@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +37,9 @@ Route::post('/api/categories', [CategoryController::class, 'store']);
 Route::put('/api/categories/{category}', [CategoryController::class, 'update']);
 Route::delete('/api/categories/{category}', [CategoryController::class, 'destroy']);
 
+Route::middleware(['auth'])->get('/tasks', function () {
+    return Inertia::render('Tasks/Index');
+})->name('tasks');
 
 
 require __DIR__.'/auth.php';
