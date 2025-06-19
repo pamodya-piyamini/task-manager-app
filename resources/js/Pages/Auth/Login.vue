@@ -39,6 +39,9 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
+                 <div>
+                    <h1 class="text-3xl font-bold text-center my-4">Login</h1>
+                </div>
                 <InputLabel for="email" value="Email" />
 
                 <TextInput
@@ -78,6 +81,17 @@ const submit = () => {
                 </label>
             </div>
 
+            <hr class="my-2" />
+            <div class="my-4 flex justify-center">
+                <Link
+                    :href="route('register')"
+                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                    Don't have an account?
+                </Link>
+            </div>
+            <hr class="my-2" />
+            
             <div class="mt-4 flex items-center justify-end">
                 <Link
                     v-if="canResetPassword"

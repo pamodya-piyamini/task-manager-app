@@ -183,7 +183,7 @@
                     <select
                         v-model="taskFilterCategory"
                         @change="filterTasks"
-                        class="border border-gray-300 rounded-md p-1 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                        class="border border-gray-300 rounded-md p-1 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                     >
                         <option value="">All</option>
                         <option
